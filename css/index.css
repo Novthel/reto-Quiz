@@ -1,0 +1,32 @@
+html,body{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslateblue;
+    height: 100vh;
+}
+
+.card{
+    background-color: white;
+    width: 500px;
+    text-align: center;
+}
+
+h1{
+    font-size: 1.5rem;
+    padding: 3px;
+    color: black;
+    
+}
+
+.btn{
+    width:250px;
+    padding: 10px;
+    margin: 5px 20px 15px;
+}
