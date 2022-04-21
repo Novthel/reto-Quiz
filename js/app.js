@@ -1,25 +1,32 @@
-import {Question, UI} from '../models/Question.js';
+import { Question } from '../models/Question.js';
+import { UI } from '../models/UI.js';
 import { cuestionario } from '../data/Cuestionario.js';
 
-window.onload = ()=>{
+let score = 0;
 
-  preguntar()
- 
-};
-
-const ui = new UI();
-
-function preguntar(){
+function main(){
     
     const i = Math.floor(Math.random() * 6);
     const question = new Question(cuestionario[i].pregunta, cuestionario[i].opciones)
- 
-    ui.mostrarPregunta(question)
+    const ui = new UI();
+    ui.mostrarPregunta(question, isCorrect)
+   
     
+}
+
+function isCorrect(resp){
+
+  console.log(resp)
+  if(resp){
+    score += 100
+  }
+  
 }
 
 
 
 
+
+main()
 
 
