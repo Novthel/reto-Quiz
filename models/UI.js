@@ -20,6 +20,18 @@ export class UI{
             opciones.appendChild(opcionBtn);
         })     
     }
+
+    limpiarOpciones(){
+        while(opciones.firstChild){
+            opciones.removeChild(opciones.firstChild)
+        }
+    }
+
+    limpiarQuestion(){
+        while(selectQuestion.firstChild){
+            selectQuestion.removeChild(selectQuestion.firstChild)
+        }
+    }
 }
 
 
