@@ -2,6 +2,7 @@
 const selectQuestion = document.querySelector('#pregunta');
 const opciones = document.querySelector('#opciones');
 const nivel = document.querySelector('#categoria');
+const salida = document.querySelector('#salir');
 
 export class UI{
 
@@ -15,7 +16,6 @@ export class UI{
         parrafo.innerText= question.pregunta;
         selectQuestion.appendChild(parrafo);
 
-
         question.opciones.map((op)=>{ 
             const opcionBtn = document.createElement('button');
             opcionBtn.innerText = op.respuesta;
@@ -23,6 +23,34 @@ export class UI{
             opcionBtn.onclick = ()=> isCorrect(op.correcto);
             opciones.appendChild(opcionBtn);
         })     
+    }
+
+    winScreen(score, saveGame){
+
+        const win = document.createElement('div');
+        const gamer = document.createElement('input');
+        const btnSubmit = document.createElement('button');
+        const acumulado = document.createElement('p');
+
+        win.classList.add('win');
+        btnSubmit.onclick = (e)=> saveGame(e);
+        gamer.classList.add('gamer');
+        btnSubmit.classList.add('boton');
+        btnSubmit.textContent = 'Guardar';
+
+      
+        acumulado.innerHTML = `Puntaje: ${ score } `;
+
+        win.appendChild(gamer);
+        win.appendChild(btnSubmit);
+        win.appendChild(acumulado);
+
+        this.limpiarCategoria()
+        this.limpiarQuestion();
+        this.limpiarOpciones();
+        opciones.appendChild(win);
+
+
     }
 
     limpiarOpciones(){
@@ -43,7 +71,7 @@ export class UI{
         }
     }
 
-    imprimir(mensaje, score){
+    imprimir(mensaje, score, tipo){
 
         const msj = document.querySelector('.mensaje');
 
@@ -51,9 +79,15 @@ export class UI{
             const divMensaje = document.createElement('div');
             const texto = document.createElement('p');
             const puntaje = document.createElement('p');
+
+            if(tipo === 'error'){
+                divMensaje.classList.add('error'); 
+            }else{
+                divMensaje.classList.add('triunfo');  
+            };
+
             puntaje.innerHTML = `Puntaje: ${ score } `;
             texto.textContent = mensaje;
-            divMensaje.classList.add('mensaje');
             divMensaje.appendChild(texto);
             divMensaje.appendChild(puntaje);
             

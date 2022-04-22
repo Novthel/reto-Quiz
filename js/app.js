@@ -5,6 +5,7 @@ import { ramdon } from './funciones.js';
 
 let score = 0;
 const ui = new UI();
+let gamers = [];
 
 function preguntar(){
     
@@ -15,6 +16,9 @@ function preguntar(){
     const question = new Question(cuestionario[n][i].pregunta, cuestionario[n][i].opciones)
     ui.mostrarPregunta(question, isCorrect, categoria)  
   
+ }else{
+  
+  ui.winScreen(score, saveGame);
  }
 }
 
@@ -23,7 +27,6 @@ function isCorrect(resp){
 
   if(resp){
     score += 100
-    console.log(score)
 
     ui.limpiarCategoria()
     ui.limpiarOpciones();
@@ -31,7 +34,7 @@ function isCorrect(resp){
     preguntar()
 
   }else{
-    ui.imprimir('Respuesta Incorrecta. Fin del juego', score);
+    ui.imprimir('Respuesta Incorrecta. Fin del juego', score, 'error');
 
     setTimeout(()=>{
       score = 0;
@@ -39,6 +42,27 @@ function isCorrect(resp){
     },3000)
   }
   
+}
+
+function saveGame(e){
+  e.preventDefault();
+  
+  const nombre = document.querySelector('.gamer').value;
+  const obj = {
+      id: Date.now(),
+      nombre,
+      score
+  }
+
+  gamers = [...gamers, obj];
+
+  localStorage.setItem('Gamer', JSON.stringify( gamers ));
+  ui.imprimir('Ganaste', score, 'triunfo');
+
+  setTimeout(()=>{
+    score = 0;
+    preguntar();
+  },3000)
 }
 
 
