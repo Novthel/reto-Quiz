@@ -1,11 +1,14 @@
 import { Question } from '../models/Question.js';
 import { UI } from '../models/UI.js';
 import { cuestionario } from '../data/Cuestionario.js';
-import { ramdon } from './funciones.js';
+import { ramdon } from './ramdon.js';
+import { saveGame } from './saveGame.js';
+
 
 let score = 0;
 const ui = new UI();
-let gamers = [];
+
+ui.drawHeader(endGame);
 
 function preguntar(){
     
@@ -17,8 +20,7 @@ function preguntar(){
     ui.mostrarPregunta(question, isCorrect, categoria)  
   
  }else{
-  
-  ui.winScreen(score, saveGame);
+  ui.winScreen(score, winGame);
  }
 }
 
@@ -41,24 +43,13 @@ function isCorrect(resp){
       preguntar();
     },3000)
   }
-  
 }
 
-function saveGame(e){
-  e.preventDefault();
-  
-  const nombre = document.querySelector('.gamer').value;
-  const obj = {
-      id: Date.now(),
-      nombre,
-      score
-  }
 
-  gamers = [...gamers, obj];
+function winGame(){
 
-  localStorage.setItem('Gamer', JSON.stringify( gamers ));
+  saveGame(score)
   ui.imprimir('Ganaste', score, 'triunfo');
-
   setTimeout(()=>{
     score = 0;
     preguntar();
@@ -66,6 +57,18 @@ function saveGame(e){
 }
 
 
+function endGame(){
+
+  saveGame(score)
+  setTimeout(()=>{
+    ui.limpiarOpciones();
+    score = 0;
+    preguntar();
+  },3000)
+}
+
+
 preguntar()
+
 
 

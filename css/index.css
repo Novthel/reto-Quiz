@@ -1,16 +1,24 @@
 html,body{
     margin:0;
     padding: 0;
+    background-color: darkslateblue;
 }
 
-body{
+main{
+    margin: 0;
     display: flex;
     color: black;
     justify-content: center;
     align-items: center;
-    background-color: darkslateblue;
-    height: 100vh;
+    height: 80vh;
 }
+
+.headerBtn{
+    display: flex; 
+    margin: 30px;  
+    justify-content: right;
+}
+
 
 .card{
     background-color: white;
@@ -27,9 +35,9 @@ h1{
 }
 
 h2{
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 10px;
-    color: black;
+    color: rgb(30, 13, 105); 
     
 }
 
@@ -39,10 +47,12 @@ h2{
     padding: 10px;
     margin: 5px 20px 15px;
     color: rgb(23, 23, 58);
+    
 }
 
 .btn:hover{
-    opacity: 0.7;
+    color: red;
+    background-color: rgb(227, 227, 233);
 }
 
 .error{
@@ -81,6 +91,12 @@ h2{
     text-align: center;
     border-radius: 10px;
 }
+
+.boton:hover{
+    color: red;
+    background-color: rgb(227, 227, 233);
+}
+
 
 .terminar{
     padding: 10px;

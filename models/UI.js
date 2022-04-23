@@ -2,12 +2,13 @@
 const selectQuestion = document.querySelector('#pregunta');
 const opciones = document.querySelector('#opciones');
 const nivel = document.querySelector('#categoria');
-const salida = document.querySelector('#salir');
+const encabezado = document.querySelector('#headerBtn');
+
 
 export class UI{
 
-    mostrarPregunta(question, isCorrect, categoria){
-        
+    mostrarPregunta(question, isCorrect, categoria){   
+
         const cat = document.createElement('h1');
         cat.textContent = `Preguntas de nivel ${ categoria } `;
         nivel.appendChild(cat);
@@ -25,7 +26,45 @@ export class UI{
         })     
     }
 
-    winScreen(score, saveGame){
+    drawHeader(endGame){
+    
+        const finalizar = document.createElement('button');
+        const ver = document.createElement('button');
+
+        finalizar.classList.add('boton')
+        finalizar.textContent = 'Finalizar Juego';
+        finalizar.onclick =()=> this.endScreen(endGame);
+
+        ver.classList.add('boton')
+        ver.textContent = 'visualizar Puntuacion';
+
+        encabezado.appendChild(finalizar);
+        encabezado.appendChild(ver);
+    }
+
+
+    endScreen(endGame){
+
+        const win = document.createElement('div');
+        const gamer = document.createElement('input');
+        const btnSubmit = document.createElement('button');
+
+        win.classList.add('win');
+        btnSubmit.onclick = ()=> endGame();
+        gamer.classList.add('gamer');
+        btnSubmit.classList.add('boton');
+        btnSubmit.textContent = 'Guardar';
+
+        win.appendChild(gamer);
+        win.appendChild(btnSubmit);
+
+        this.limpiarCategoria()
+        this.limpiarQuestion();
+        this.limpiarOpciones();
+        opciones.appendChild(win);     
+    }
+
+    winScreen(score, winGame){
 
         const win = document.createElement('div');
         const gamer = document.createElement('input');
@@ -33,13 +72,12 @@ export class UI{
         const acumulado = document.createElement('p');
 
         win.classList.add('win');
-        btnSubmit.onclick = (e)=> saveGame(e);
+        btnSubmit.onclick = ()=> winGame();
         gamer.classList.add('gamer');
         btnSubmit.classList.add('boton');
         btnSubmit.textContent = 'Guardar';
-
       
-        acumulado.innerHTML = `Puntaje: ${ score } `;
+        acumulado.innerHTML = `<span>Puntaje</span>: ${ score } `;
 
         win.appendChild(gamer);
         win.appendChild(btnSubmit);
@@ -49,9 +87,8 @@ export class UI{
         this.limpiarQuestion();
         this.limpiarOpciones();
         opciones.appendChild(win);
-
-
     }
+
 
     limpiarOpciones(){
         while(opciones.firstChild){
@@ -101,7 +138,6 @@ export class UI{
                 divMensaje.remove()
                 this.limpiarOpciones();
             },3000) 
-    
         }
     }
 }
